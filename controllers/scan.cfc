@@ -30,6 +30,32 @@ component
 			, TimeRun  = Now()
 			};
 
+
+		//Now save the reports
+
+		Summary = new Summary();
+		Report = new Report(summary=Summary);
+
+		Report.setMatches(rc.ScanResults);
+
+		
+		Summary.setpath(rc.ScanData.StartingDir);
+		//Summary.setfilesToCheck(rc.ScanData);
+		Summary.settermsToCheck(rc.ScanData.ClientScopes);
+		//Summary.setblockToCheck(rc.ScanData);
+		Summary.setnumberOfMatches(rc.ScanResults.info.totals.alertcount);
+		Summary.setnumberOfFiles(rc.ScanResults.info.totals.riskfilecount);
+		Summary.setnumberOfQueries(rc.ScanResults.info.totals.querycount);
+		Summary.setscanTimetaken(rc.ScanResults.info.totals.time);
+		Summary.setscanDate(Now());
+
+	
+
+		Summary.setextraData(rc.ScanData); //Any extra data you want to use
+		Summary.setType("SQLi");
+		
+		Report.save("/sqlireports/");
+
 		fw.setView('results.#rc.OutputFormat#');
 
 		request.layout = rc.OutputFormat EQ 'html';
