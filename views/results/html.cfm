@@ -13,7 +13,13 @@
 	<fieldset class="controls" id="DisplayOptions">
 		Enable JavaScript to allow display options.
 	</fieldset>
+	<style>
+		.highlight {
+			 		background:#c3effd; color:#000;
+				}
 
+
+	</style>
 
 	<fieldset class="main" id="results">
 		<dl>
@@ -40,7 +46,10 @@
 						<small class="id">#QueryId#</small>
 					</dt>
 					<cfset QCode = HtmlEditFormat(QueryCode).replaceAll( '(?<!\A)\r?\n' , '<br/>' )/>
-					<dd class="query_code" id="#QueryId#">#QCode#</dd>
+					<dd class="query_code" id="#QueryId#">#ReReplace(QCode, "(##([\w'-.\[\]]*)##)", "<span class='highlight'>\0</span>", "all")#</dd>
+
+
+
 				</cfoutput>
 				</dl>
 			</dd>
